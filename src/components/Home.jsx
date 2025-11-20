@@ -6,7 +6,6 @@ export function Home({ setCurrentPage }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(0);
-  // trackpad/scroll-based gallery - unused pointer refs removed
 
   const carouselImages = [
     { url: "/iphone_app.png", alt: "App" },
@@ -95,35 +94,9 @@ export function Home({ setCurrentPage }) {
             ))}
           </div>
 
-          {/* Left button */}
-          <button
-            onClick={() => {
-              const nextIndex = Math.max(0, currentSlide - 1);
-              const left = nextIndex * (containerRef.current?.clientWidth || 0);
-              containerRef.current?.scrollTo({ left, behavior: "smooth" });
-              setCurrentSlide(nextIndex);
-            }}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md"
-          >
-            <ChevronLeft className="w-6 h-6" style={{ color: "#DD1467" }} />
-          </button>
-
-          {/* Right button */}
-          <button
-            onClick={() => {
-              const nextIndex = Math.min(carouselImages.length - 1, currentSlide + 1);
-              const left = nextIndex * (containerRef.current?.clientWidth || 0);
-              containerRef.current?.scrollTo({ left, behavior: "smooth" });
-              setCurrentSlide(nextIndex);
-            }}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md"
-          >
-            <ChevronRight className="w-6 h-6" style={{ color: "#DD1467" }} />
-          </button>
         </div>
 
 
-        {/* Slider removed per user request; navigation is via trackpad and arrow buttons */}
       </div>
 
       <Footer />
