@@ -8,12 +8,12 @@ export function Home({ setCurrentPage }) {
   const [containerWidth, setContainerWidth] = useState(0);
 
   const carouselImages = [
-    { url: "/iphone_app.png", alt: "App" },
-    { url: "/promo.jpg", alt: "Promo image" },
-    { url: "/saugage.jpg", alt: "Sausage" },
-    { url: "/meal-deal.jpg", alt: "Meal Deal" },
-    { url: "/iced-latte.jpg", alt: "Iced Latte" },
-    { url: "/doughnut-variety.jpg", alt: "Dougunuts" },
+    { url: import.meta.env.BASE_URL + "iphone_app.png", alt: "App" },
+    { url: import.meta.env.BASE_URL + "promo.jpg", alt: "Promo image" },
+    { url: import.meta.env.BASE_URL + "saugage.jpg", alt: "Sausage" },
+    { url: import.meta.env.BASE_URL + "meal-deal.jpg", alt: "Meal Deal" },
+    { url: import.meta.env.BASE_URL + "iced-latte.jpg", alt: "Iced Latte" },
+    { url: import.meta.env.BASE_URL + "doughnut-variety.jpg", alt: "Doughnuts" },
   ];
 
   useEffect(() => {

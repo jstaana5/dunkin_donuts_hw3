@@ -8,37 +8,36 @@ const menuItems = [
     id: 1,
     name: 'Iced Latte',
     price: 5.67,
-    image: 'public/iced-latte.jpg'
-  },
+    image: import.meta.env.BASE_URL + "iced-latte.jpg"},
   {
     id: 2,
     name: 'Original Blend',
     price: 5.74,
-    image: 'og-blend.jpg'
+    image: import.meta.env.BASE_URL + "og-blend.jpg"
   },
   {
     id: 3,
     name: 'Blueberry Breeze Refresher',
     price: 5.00,
-    image: '/refresher.jpg'
+    image: import.meta.env.BASE_URL + "refresher.jpg"
   },
   {
     id: 4,
     name: "Bagel n' Cheese",
     price: 4.36,
-    image: '/bagel.jpg'
+    image: import.meta.env.BASE_URL + "bagel.jpg"
   },
   {
     id: 5,
     name: "Turkey, Cheese, n' Egg Croissant",
     price: 6.61,
-    image: '/croissant.jpg'
+    image: import.meta.env.BASE_URL + "croissant.jpg"
   },
   {
     id: 6,
     name: 'BEC Wrap',
     price: 4.23,
-    image: '/saugage.jpg'
+    image: import.meta.env.BASE_URL + "saugage.jpg"
   },
 ];
 
