@@ -1,7 +1,7 @@
 
   # Dunkin Donuts Webpage
 
-  This is a code bundle for Dunkin Donuts Webpage. The original project is available at https://www.figma.com/design/yoTYoFvDjVDJnpcO9NE7Nr/Dunkin-Donuts-Webpage.
+  Utilised figma + tailwind css for starter code template
 
   ## Running the code
 
