@@ -8,7 +8,7 @@ export function Header({ currentPage, setCurrentPage, isMenuOpen, setIsMenuOpen 
           className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" 
           onClick={() => setCurrentPage('home')}
         >
-          <img src="public/logo.png" alt="Dunkin Donuts Logo" className="w-auto h-20" />
+          <img src={import.meta.env.BASE_URL + "logo.png"} alt="Dunkin Donuts Logo" className="w-auto h-20" />
 
         </div>
         
