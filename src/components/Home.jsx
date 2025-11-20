@@ -6,10 +6,7 @@ export function Home({ setCurrentPage }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const containerRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(0);
-  const isDraggingRef = useRef(false);
-  const dragStartXRef = useRef(0);
-  const dragTranslateRef = useRef(0);
-  const wheelCooldownRef = useRef(null);
+  // trackpad/scroll-based gallery - unused pointer refs removed
 
   const carouselImages = [
     { url: "/iphone_app.png", alt: "App" },
@@ -29,10 +26,9 @@ export function Home({ setCurrentPage }) {
     updateWidth();
     window.addEventListener("resize", updateWidth);
 
-    // No auto-advance: user controls slides manually via drag, arrows, or slider.
+    // No auto-advance: user controls slides manually via trackpad, arrows, or slider.
     return () => {
       window.removeEventListener("resize", updateWidth);
-      if (wheelCooldownRef.current) clearTimeout(wheelCooldownRef.current);
     };
   }, [carouselImages.length]);
 
@@ -45,12 +41,12 @@ export function Home({ setCurrentPage }) {
       const scrollLeft = el.scrollLeft;
       const width = el.clientWidth || 1;
       const index = Math.round(scrollLeft / width);
-      if (index !== currentSlide) setCurrentSlide(index);
+      setCurrentSlide(index);
     }
 
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
-  }, [currentSlide]);
+  }, []);
 
   useEffect(() => {
     // ensure width is measured after mount
@@ -69,9 +65,27 @@ export function Home({ setCurrentPage }) {
 
         {/* Sliding Carousel */}
         <div className="relative mt-8 overflow-hidden rounded-3xl shadow-xl">
-          <div ref={containerRef} className="scroll-container">
+          <div
+            ref={containerRef}
+            className="flex"
+            style={{
+              overflowX: "auto",
+              scrollSnapType: "x mandatory",
+              WebkitOverflowScrolling: "touch",
+              scrollBehavior: "smooth",
+              gap: "16px",
+              padding: "12px 0",
+            }}
+          >
             {carouselImages.map((img, index) => (
-              <div key={index} className="scroll-item">
+              <div
+                key={index}
+                style={{
+                  flex: "0 0 100%",
+                  scrollSnapAlign: "center",
+                  padding: "0 8px",
+                }}
+              >
                 <img
                   src={img.url}
                   alt={img.alt}
@@ -83,11 +97,12 @@ export function Home({ setCurrentPage }) {
 
           {/* Left button */}
           <button
-            onClick={() =>
-              setCurrentSlide(
-                (currentSlide - 1 + carouselImages.length) % carouselImages.length
-              )
-            }
+            onClick={() => {
+              const nextIndex = Math.max(0, currentSlide - 1);
+              const left = nextIndex * (containerRef.current?.clientWidth || 0);
+              containerRef.current?.scrollTo({ left, behavior: "smooth" });
+              setCurrentSlide(nextIndex);
+            }}
             className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md"
           >
             <ChevronLeft className="w-6 h-6" style={{ color: "#DD1467" }} />
@@ -95,32 +110,20 @@ export function Home({ setCurrentPage }) {
 
           {/* Right button */}
           <button
-            onClick={() =>
-              setCurrentSlide((currentSlide + 1) % carouselImages.length)
-            }
+            onClick={() => {
+              const nextIndex = Math.min(carouselImages.length - 1, currentSlide + 1);
+              const left = nextIndex * (containerRef.current?.clientWidth || 0);
+              containerRef.current?.scrollTo({ left, behavior: "smooth" });
+              setCurrentSlide(nextIndex);
+            }}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md"
           >
             <ChevronRight className="w-6 h-6" style={{ color: "#DD1467" }} />
           </button>
         </div>
 
-        {/* Slider control placed below the images: drag to change slide */}
-        <div className="mt-6 flex flex-col items-center">
-          <div className="text-sm mb-2 text-gray-600">Drag the slider to move slides</div>
-          <div className="w-full px-6">
-            <div className="w-full md:w-3/5 mx-auto">
-              <input
-                aria-label="Slide position"
-                type="range"
-                min={0}
-                max={carouselImages.length - 1}
-                value={currentSlide}
-                onChange={(e) => setCurrentSlide(Number(e.target.value))}
-                className="slider-range w-full"
-              />
-            </div>
-          </div>
-        </div>
+
+        {/* Slider removed per user request; navigation is via trackpad and arrow buttons */}
       </div>
 
       <Footer />

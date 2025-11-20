@@ -3,71 +3,43 @@ import { Plus, ShoppingCart, Trash2, ChevronDown, ChevronUp } from 'lucide-react
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Footer } from './Footer';
 
-// Menu items array (no type annotations needed in JSX)
 const menuItems = [
   {
     id: 1,
-    name: 'Iced Coffee',
-    price: 3.99,
-    category: 'Drinks',
-    image: 'https://images.unsplash.com/photo-1684439670717-b1147a7e7534?...'
+    name: 'Iced Latte',
+    price: 5.67,
+    image: 'public/iced-latte.jpg'
   },
   {
     id: 2,
-    name: 'Cold Brew',
-    price: 4.49,
-    category: 'Drinks',
-    image: 'https://images.unsplash.com/photo-1561641377-f7456d23aa9b?...'
+    name: 'Original Blend',
+    price: 5.74,
+    image: 'og-blend.jpg'
   },
   {
     id: 3,
-    name: 'Refresher',
-    price: 4.99,
-    category: 'Drinks',
-    image: 'https://images.unsplash.com/photo-1745725247846-12a3e3109bbf?...'
+    name: 'Blueberry Breeze Refresher',
+    price: 5.00,
+    image: '/refresher.jpg'
   },
   {
     id: 4,
-    name: 'Bagel & Cream Cheese',
-    price: 2.99,
-    category: 'Food',
-    image: 'https://images.unsplash.com/photo-1726733860096-34a3fbae77c5?...'
+    name: "Bagel n' Cheese",
+    price: 4.36,
+    image: '/bagel.jpg'
   },
   {
     id: 5,
-    name: 'Croissant Sandwich',
-    price: 5.49,
-    category: 'Food',
-    image: 'https://images.unsplash.com/photo-1738682585466-c287db5404de?...'
+    name: "Turkey, Cheese, n' Egg Croissant",
+    price: 6.61,
+    image: '/croissant.jpg'
   },
   {
     id: 6,
-    name: 'Breakfast Wrap',
-    price: 4.99,
-    category: 'Food',
-    image: 'https://images.unsplash.com/photo-1694610882150-4de206edf95a?...'
+    name: 'BEC Wrap',
+    price: 4.23,
+    image: '/saugage.jpg'
   },
-  {
-    id: 7,
-    name: 'Glazed Donut',
-    price: 1.49,
-    category: 'Donuts',
-    image: 'https://images.unsplash.com/photo-1624300162366-51a5f2edce68?...'
-  },
-  {
-    id: 8,
-    name: 'Chocolate Donut',
-    price: 1.69,
-    category: 'Donuts',
-    image: 'https://images.unsplash.com/photo-1639710743616-c5dfaf1fbb2b?...'
-  },
-  {
-    id: 9,
-    name: 'Sprinkle Donut',
-    price: 1.79,
-    category: 'Donuts',
-    image: 'https://images.unsplash.com/photo-1670307335853-a3f0b0fe87b2?...'
-  }
 ];
 
 // Props are just destructured — no type annotations
@@ -79,8 +51,8 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-orange-50">
       <div className="max-w-7xl mx-auto px-6 py-12 pb-32">
         <div className="text-center mb-12">
-          <h1 className="text-5xl mb-4" style={{ color: '#DD1467' }}>Our Menu</h1>
-          <p className="text-2xl" style={{ color: '#FF6600' }}>Choose your favorites!</p>
+          <h1 className="text-5xl mb-4" style={{ color: '#DD1467' }}>Menu</h1>
+          <p className="text-2xl" style={{ color: '#FF6600' }}>Browse our menu!</p>
         </div>
         
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
@@ -95,12 +67,6 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
                   alt={item.name}
                   className="w-full h-full object-cover"
                 />
-                <div 
-                  className="absolute top-2 right-2 px-2 py-1 rounded-full text-white shadow-lg text-xs"
-                  style={{ backgroundColor: '#FF6600' }}
-                >
-                  {item.category}
-                </div>
               </div>
               <div className="p-3">
                 <h3 className="text-sm mb-2 line-clamp-1" style={{ color: '#DD1467' }}>{item.name}</h3>
