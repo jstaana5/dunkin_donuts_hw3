@@ -11,7 +11,7 @@ export function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Thank you for your feedback! We will get back to you soon.');
+    alert('Thank you for your message, ' + formData.name + '!');
     setFormData({ name: '', email: '', message: '' });
   };
 
@@ -19,8 +19,8 @@ export function Contact() {
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-pink-50">
       <div className="max-w-4xl mx-auto px-6 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-5xl mb-4" style={{ color: '#DD1467' }}>Contact Us</h1>
-          <p className="text-2xl" style={{ color: '#FF6600' }}>We'd love to hear from you!</p>
+          <h1 className="text-5xl mb-4 text-pink-600">Contact Us</h1>
+          <p className="text-2xl text-orange-500">Have a comment or suggestion? We'd love to hear it!</p>
         </div>
         
         {/* Contact Form */}
@@ -71,27 +71,26 @@ export function Contact() {
             </div>
             
             <button
-                type="submit"
-                className="w-full text-white px-8 py-5 rounded-xl shadow-xl 
-                          hover:shadow-2xl hover:scale-105 transition-colors duration-300 
-                          flex items-center justify-center gap-3 text-2xl 
-                          bg-[#DD1467] hover:bg-[#FF6600]"
-              >
-                <Send className="w-6 h-6" />
-                Send Message
-              </button>
+              type="submit"
+              className="w-full text-white px-8 py-5 rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-3 text-2xl"
+              style={{ backgroundColor: '#DD1467' }}
+            >
+              <Send className="w-6 h-6" />
+              Send Message
+            </button>
           </form>
         </div>
 
         {/* Map Placeholder */}
         <div className="bg-white rounded-3xl overflow-hidden shadow-xl h-96">
-          <div className="w-full h-full bg-gradient-to-br from-pink-100 to-orange-100 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-20 h-20 mx-auto mb-4" style={{ color: '#DD1467' }} />
-              <p className="text-2xl" style={{ color: '#FF6600' }}>Map Location</p>
-              <p className="text-xl text-gray-600">123 Dunkin Street, Boston, MA</p>
-            </div>
-          </div>
+          <iframe
+            title="Dunkin Donuts locations"
+            src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d48461.16090503386!2d-74.19012731444063!3d40.61173847290486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDunkin%20Donuts!5e0!3m2!1sen!2sus!4v1759524642784!5m2!1sen!2sus"
+            className="w-full h-full border-0"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
       </div>
 
