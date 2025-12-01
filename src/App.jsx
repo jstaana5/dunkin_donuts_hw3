@@ -5,23 +5,16 @@ import { About } from './components/About';
 import { Contact } from './components/Contact';
 import { Header } from './components/Header';
 
-export type CartItem = {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-};
-
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'menu' | 'about' | 'contact'>('home');
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [currentPage, setCurrentPage] = useState('home');
+  const [cartItems, setCartItems] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const addToCart = (item: { id: number; name: string; price: number }) => {
+  const addToCart = (item) => {
     setCartItems(prev => {
       const existingItem = prev.find(i => i.id === item.id);
       if (existingItem) {
-        return prev.map(i => 
+        return prev.map(i =>
           i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
         );
       }
@@ -33,21 +26,24 @@ export default function App() {
     setCartItems([]);
   };
 
-  const totalAmount = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalAmount = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
     <div className="min-h-screen bg-white">
-      <Header 
-        currentPage={currentPage} 
+      <Header
+        currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
       />
-      
+
       {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
       {currentPage === 'menu' && (
-        <Menu 
-          addToCart={addToCart} 
+        <Menu
+          addToCart={addToCart}
           cartItems={cartItems}
           totalAmount={totalAmount}
           clearCart={clearCart}
