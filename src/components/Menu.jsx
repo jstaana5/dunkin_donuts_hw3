@@ -73,7 +73,7 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
                   <span className="text-lg" style={{ color: '#FF6600' }}>${item.price.toFixed(2)}</span>
                   <button
                     onClick={() => addToCart(item)}
-                    className="p-2 rounded-full text-white shadow-md hover:shadow-lg hover:scale-110 transition-all"
+                    className="cursor-pointer p-2 rounded-full text-white shadow-md hover:shadow-lg hover:scale-110 transition-all"
                     style={{ backgroundColor: '#DD1467' }}
                     aria-label={`Add ${item.name} to cart`}
                   >
@@ -111,9 +111,9 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
             )}
           </div>
           {isCartOpen ? (
-            <ChevronDown className="w-6 h-6" style={{ color: '#DD1467' }} />
+            <ChevronDown className="cursor-pointer w-6 h-6" style={{ color: '#DD1467' }} />
           ) : (
-            <ChevronUp className="w-6 h-6" style={{ color: '#DD1467' }} />
+            <ChevronUp className="cursor-pointer w-6 h-6" style={{ color: '#DD1467' }} />
           )}
         </button>
 
@@ -146,7 +146,7 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
             <button
               onClick={clearCart}
               disabled={cartItems.length === 0}
-              className="w-full text-white px-4 py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="cursor-pointer w-full text-white px-4 py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ backgroundColor: '#DD1467' }}
             >
               <Trash2 className="w-4 h-4" />

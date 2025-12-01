@@ -18,9 +18,9 @@ export function Header({ currentPage, setCurrentPage, isMenuOpen, setIsMenuOpen 
           aria-label="Toggle menu"
         >
           {isMenuOpen ? (
-            <X className="w-8 h-8" style={{ color: '#DD1467' }} strokeWidth={3} />
+            <X className="cursor-pointer w-8 h-8" style={{ color: '#DD1467' }} strokeWidth={3} />
           ) : (
-            <Menu className="w-8 h-8" style={{ color: '#DD1467' }} strokeWidth={3} />
+            <Menu className="cursor-pointer w-8 h-8" style={{ color: '#DD1467' }} strokeWidth={3} />
           )}
         </button>
       </div>
@@ -33,7 +33,7 @@ export function Header({ currentPage, setCurrentPage, isMenuOpen, setIsMenuOpen 
                 setCurrentPage('home');
                 setIsMenuOpen(false);
               }}
-              className={`text-left px-6 py-4 rounded-xl transition-all text-xl ${
+              className={`cursor-pointer text-left px-6 py-4 rounded-xl transition-all text-xl ${
                 currentPage === 'home' 
                   ? 'shadow-lg scale-105' 
                   : 'hover:shadow-md hover:scale-102'
@@ -50,7 +50,7 @@ export function Header({ currentPage, setCurrentPage, isMenuOpen, setIsMenuOpen 
                 setCurrentPage('menu');
                 setIsMenuOpen(false);
               }}
-              className={`text-left px-6 py-4 rounded-xl transition-all text-xl ${
+              className={`cursor-pointer text-left px-6 py-4 rounded-xl transition-all text-xl ${
                 currentPage === 'menu' 
                   ? 'shadow-lg scale-105' 
                   : 'hover:shadow-md hover:scale-102'
@@ -67,7 +67,7 @@ export function Header({ currentPage, setCurrentPage, isMenuOpen, setIsMenuOpen 
                 setCurrentPage('about');
                 setIsMenuOpen(false);
               }}
-              className={`text-left px-6 py-4 rounded-xl transition-all text-xl ${
+              className={`cursor-pointer text-left px-6 py-4 rounded-xl transition-all text-xl ${
                 currentPage === 'about' 
                   ? 'shadow-lg scale-105' 
                   : 'hover:shadow-md hover:scale-102'
@@ -84,7 +84,7 @@ export function Header({ currentPage, setCurrentPage, isMenuOpen, setIsMenuOpen 
                 setCurrentPage('contact');
                 setIsMenuOpen(false);
               }}
-              className={`text-left px-6 py-4 rounded-xl transition-all text-xl ${
+              className={`cursor-pointer text-left px-6 py-4 rounded-xl transition-all text-xl ${
                 currentPage === 'contact' 
                   ? 'shadow-lg scale-105' 
                   : 'hover:shadow-md hover:scale-102'

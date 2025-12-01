@@ -72,7 +72,7 @@ export function Contact() {
             
             <button
               type="submit"
-              className="w-full text-white px-8 py-5 rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-3 text-2xl"
+              className="cursor-pointer w-full text-white px-8 py-5 rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-3 text-2xl"
               style={{ backgroundColor: '#DD1467' }}
             >
               <Send className="w-6 h-6" />
