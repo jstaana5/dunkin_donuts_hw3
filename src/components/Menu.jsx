@@ -1,50 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, ShoppingCart, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Footer } from './Footer';
 
-const menuItems = [
-  {
-    id: 1,
-    name: 'Iced Latte',
-    price: 5.67,
-    image: import.meta.env.BASE_URL + "iced-latte.jpg"},
-  {
-    id: 2,
-    name: 'Original Blend',
-    price: 5.74,
-    image: import.meta.env.BASE_URL + "og-blend.jpg"
-  },
-  {
-    id: 3,
-    name: 'Blueberry Breeze Refresher',
-    price: 5.00,
-    image: import.meta.env.BASE_URL + "refresher.jpg"
-  },
-  {
-    id: 4,
-    name: "Bagel n' Cheese",
-    price: 4.36,
-    image: import.meta.env.BASE_URL + "bagel.jpg"
-  },
-  {
-    id: 5,
-    name: "Turkey, Cheese, n' Egg Croissant",
-    price: 6.61,
-    image: import.meta.env.BASE_URL + "croissant.jpg"
-  },
-  {
-    id: 6,
-    name: 'BEC Wrap',
-    price: 4.23,
-    image: import.meta.env.BASE_URL + "saugage.jpg"
-  },
-];
-
-// Props are just destructured — no type annotations
 export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
+  const [menuItems, setMenuItems] = useState([]);   // state for menu items
   const [isCartOpen, setIsCartOpen] = useState(true);
   const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  // ✅ Fetch menu items from backend
+  useEffect(() => {
+  fetch("http://localhost:8000/api/menu")
+    .then(res => res.json())
+    .then(data => {
+      console.log("Menu items from backend:", data); // ✅ debug
+      setMenuItems(data);
+    })
+    .catch(err => console.error("Error fetching menu:", err));
+}, []);
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-orange-50">
@@ -57,12 +31,13 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {menuItems.map((item) => (
             <div 
-              key={item.id} 
+              key={item._id || item.id}   // use MongoDB _id if available
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all"
             >
               <div className="relative h-40 overflow-hidden">
+                {/* ✅ Use ImageWithFallback with BASE_URL + filename */}
                 <ImageWithFallback
-                  src={item.image}
+                  src={`/dunkin_donuts_hw3/${item.image}`} 
                   alt={item.name}
                   className="w-full h-full object-cover"
                 />
@@ -128,7 +103,7 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
             {cartItems.length > 0 ? (
               <div className="mb-4 max-h-48 overflow-y-auto space-y-2">
                 {cartItems.map((item) => (
-                  <div key={item.id} className="flex justify-between items-center bg-gray-50 p-3 rounded-xl">
+                  <div key={item._id || item.id} className="flex justify-between items-center bg-gray-50 p-3 rounded-xl">
                     <div>
                       <p className="text-sm" style={{ color: '#DD1467' }}>{item.name}</p>
                       <p className="text-xs text-gray-600">Qty: {item.quantity}</p>
