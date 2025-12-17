@@ -1,5 +1,5 @@
-import { ObjectId } from "mongodb"; 
-const { MongoClient, ServerApiVersion } = require("mongodb");
+import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
+
 
 const express = require("express");
 const app = express();
@@ -75,22 +75,6 @@ app.post("/api/orders", async (req, res) => {
   }
 });
 
-const placeOrder = async (cartItems, cartTotal) => {
-  const order = {
-    items: cartItems,
-    total: cartTotal
-  };
-
-  const res = await fetch("https://dunkin-donuts-hw3.onrender.com/api/orders", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(order),
-  });
-
-  const data = await res.json();
-  console.log("Order response:", data);
-  alert("Order placed successfully!");
-};
 
 // data persistence
 app.get("/api/orders", async (req, res) => {
