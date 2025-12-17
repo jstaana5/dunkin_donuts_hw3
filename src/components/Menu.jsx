@@ -8,12 +8,11 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart, setCurrentP
   const [isCartOpen, setIsCartOpen] = useState(true);
   const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  // ✅ Fetch menu items from backend
   useEffect(() => {
   fetch("https://dunkin-donuts-hw3.onrender.com/api/menu")
     .then(res => res.json())
     .then(data => {
-      console.log("Menu items from backend:", data); // ✅ debug
+      console.log("Menu items from backend:", data); 
       setMenuItems(data);
     })
     .catch(err => console.error("Error fetching menu:", err));

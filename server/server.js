@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb"; 
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
 const express = require("express");
@@ -44,7 +45,7 @@ app.get("/api/menu", async (req, res) => {
     const db = client.db("dunkin_donuts");   // ✅ exact DB name
     const menuCollection = db.collection("menu");
 
-    const items = await menuCollection.find({}).toArray(); // ✅ query the collection
+    const items = await menuCollection.find({}).toArray(); 
     console.log("Fetched items:", items); // log to terminal for debugging
     res.json(items);
   } catch (err) {
@@ -90,6 +91,78 @@ const placeOrder = async (cartItems, cartTotal) => {
   console.log("Order response:", data);
   alert("Order placed successfully!");
 };
+
+// data persistence
+app.get("/api/orders", async (req, res) => {
+  try {
+    const orders = await client.db("dunkin_donuts")
+      .collection("orders")
+      .find({})
+      .toArray();
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch orders" });
+  }
+});
+
+app.put("/api/orders/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const update = req.body; // e.g. { status: "completed" }
+
+    const result = await client.db("dunkin_donuts")
+      .collection("orders")
+      .updateOne({ _id: new ObjectId(id) }, { $set: update });
+
+    res.json({ success: true, result });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update order" });
+  }
+});
+
+app.post("/api/menu", async (req, res) => {
+  try {
+    const newItem = req.body; // { name, price, image }
+    const result = await client.db("dunkin_donuts")
+      .collection("menu")
+      .insertOne(newItem);
+
+    res.json({ success: true, id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add menu item" });
+  }
+});
+
+app.put("/api/menu/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const update = req.body;
+
+    const result = await client.db("dunkin_donuts")
+      .collection("menu")
+      .updateOne({ _id: new ObjectId(id) }, { $set: update });
+
+    res.json({ success: true, result });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update menu item" });
+  }
+});
+
+app.delete("/api/menu/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await client.db("dunkin_donuts")
+      .collection("menu")
+      .deleteOne({ _id: new ObjectId(id) });
+
+    res.json({ success: true, result });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete menu item" });
+  }
+});
+
+
 
 
 const PORT = process.env.PORT || 8000;
