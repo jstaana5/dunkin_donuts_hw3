@@ -56,22 +56,41 @@ app.get("/api/menu", async (req, res) => {
 // ✅ Route: Place an order
 app.post("/api/orders", async (req, res) => {
   try {
-    const db = client.db("dunkin_donuts"); // ✅ fixed DB name
-    const ordersCollection = db.collection("orders");
-
     const order = {
-      items: req.body.items,   // cart items from frontend
-      total: req.body.total,   // total amount
-      timestamp: new Date(),   // auto add timestamp
+      items: req.body.items,       // array of menu items
+      total: req.body.total,       // total price
+      customer: "Guest",           // fixed value since no login
+      createdAt: new Date()
     };
 
-    const result = await ordersCollection.insertOne(order);
-    res.json({ success: true, orderId: result.insertedId });
+    const result = await client.db("dunkin_donuts")
+      .collection("orders")
+      .insertOne(order);
+
+    res.status(201).json({ message: "Order saved!", orderId: result.insertedId });
   } catch (err) {
     console.error("Error saving order:", err);
-    res.status(500).send("Error saving order");
+    res.status(500).json({ error: "Failed to save order" });
   }
 });
+
+const placeOrder = async (cartItems, cartTotal) => {
+  const order = {
+    items: cartItems,
+    total: cartTotal
+  };
+
+  const res = await fetch("https://dunkin-donuts-hw3.onrender.com/api/orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(order),
+  });
+
+  const data = await res.json();
+  console.log("Order response:", data);
+  alert("Order placed successfully!");
+};
+
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

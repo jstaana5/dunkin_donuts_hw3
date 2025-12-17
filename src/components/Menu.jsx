@@ -3,7 +3,7 @@ import { Plus, ShoppingCart, Trash2, ChevronDown, ChevronUp } from 'lucide-react
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Footer } from './Footer';
 
-export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
+export function Menu({ addToCart, cartItems, totalAmount, clearCart, setCurrentPage }) {
   const [menuItems, setMenuItems] = useState([]);   // state for menu items
   const [isCartOpen, setIsCartOpen] = useState(true);
   const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -31,7 +31,7 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {menuItems.map((item) => (
             <div 
-              key={item._id || item.id}   // use MongoDB _id if available
+              key={item._id || item._id}   // use MongoDB _id if available
               className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transition-all"
             >
               <div className="relative h-40 overflow-hidden">
@@ -97,13 +97,18 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
           <div className="px-6 pb-6">
             <div className="mb-4">
               <span className="mr-2 text-lg">Total:</span>
-              <span className="text-2xl" style={{ color: '#FF6600' }}>${totalAmount.toFixed(2)}</span>
+              <span className="text-2xl" style={{ color: '#FF6600' }}>
+                ${totalAmount.toFixed(2)}
+              </span>
             </div>
-            
+
             {cartItems.length > 0 ? (
               <div className="mb-4 max-h-48 overflow-y-auto space-y-2">
                 {cartItems.map((item) => (
-                  <div key={item._id || item.id} className="flex justify-between items-center bg-gray-50 p-3 rounded-xl">
+                  <div
+                    key={item._id || item._id}
+                    className="flex justify-between items-center bg-gray-50 p-3 rounded-xl"
+                  >
                     <div>
                       <p className="text-sm" style={{ color: '#DD1467' }}>{item.name}</p>
                       <p className="text-xs text-gray-600">Qty: {item.quantity}</p>
@@ -117,7 +122,8 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
             ) : (
               <p className="mb-4 text-gray-500 text-center text-sm">Your cart is empty</p>
             )}
-            
+
+            {/* Clear Cart Button */}
             <button
               onClick={clearCart}
               disabled={cartItems.length === 0}
@@ -127,8 +133,19 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
               <Trash2 className="w-4 h-4" />
               Clear Cart
             </button>
+
+            {/* Checkout Button */}
+            <button
+              onClick={() => setCurrentPage("checkout")}
+              disabled={cartItems.length === 0}
+              className="cursor-pointer w-full text-white px-4 py-3 rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{ backgroundColor: "#FF6600" }}
+            >
+              Checkout
+            </button>
           </div>
         )}
+
       </div>
 
       <Footer />

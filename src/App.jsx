@@ -4,6 +4,8 @@ import { Menu } from './components/Menu';
 import { About } from './components/About';
 import { Contact } from './components/Contact';
 import { Header } from './components/Header';
+import { Checkout } from './components/Checkout';
+
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -12,10 +14,10 @@ export default function App() {
 
   const addToCart = (item) => {
     setCartItems(prev => {
-      const existingItem = prev.find(i => i.id === item.id);
+      const existingItem = prev.find(i => i._id === item._id);
       if (existingItem) {
         return prev.map(i =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+          i._id === item._id ? { ...i, quantity: i.quantity + 1 } : i
         );
       }
       return [...prev, { ...item, quantity: 1 }];
@@ -47,10 +49,20 @@ export default function App() {
           cartItems={cartItems}
           totalAmount={totalAmount}
           clearCart={clearCart}
+          setCurrentPage={setCurrentPage}   // ✅ pass down
         />
       )}
       {currentPage === 'about' && <About />}
       {currentPage === 'contact' && <Contact />}
+      {currentPage === 'checkout' && (
+        <Checkout
+          cartItems={cartItems}
+          totalAmount={totalAmount}
+          clearCart={clearCart}
+          setCurrentPage={setCurrentPage}   // ✅ pass down
+        />
+)}
+
     </div>
   );
 }
