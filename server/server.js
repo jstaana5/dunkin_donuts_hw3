@@ -14,8 +14,7 @@ app.get("/", (req, res) => {
 });
 
 
-// Hardcoded URI (since you’re not using config.env)
-const uri = "mongodb+srv://jstaana5:lol12345@ddhw3.yonygqk.mongodb.net/dunkin_donuts";
+const uri = process.env.MONGO_URI;
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -74,7 +73,7 @@ app.post("/api/orders", async (req, res) => {
   }
 });
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

@@ -10,7 +10,7 @@ export function Menu({ addToCart, cartItems, totalAmount, clearCart }) {
 
   // ✅ Fetch menu items from backend
   useEffect(() => {
-  fetch("http://localhost:8000/api/menu")
+  fetch("https://dunkin-donuts-hw3.onrender.com/api/menu")
     .then(res => res.json())
     .then(data => {
       console.log("Menu items from backend:", data); // ✅ debug
