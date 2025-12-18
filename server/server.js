@@ -1,13 +1,10 @@
-import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
-
-
 const express = require("express");
+const cors = require("cors");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+
 const app = express();
 app.use(express.json());
-
-const cors = require("cors");
 app.use(cors());
-
 
 app.get("/", (req, res) => {
   console.log("Root route hit!");
